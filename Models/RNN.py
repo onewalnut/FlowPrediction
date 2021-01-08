@@ -64,7 +64,7 @@ class TemporalNet(torch.nn.Module):
             torch.nn.ReLU(inplace=True)
         )
 
-        self.prediction = torch.nn.Linear(REGRESS_SIZE, 3)
+        self.prediction = torch.nn.Linear(REGRESS_SIZE, 1)
 
         for m in self.regression.modules():
             if isinstance(m, torch.nn.Linear):

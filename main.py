@@ -51,10 +51,8 @@ def flow_predict():
         train_process_record.append([epoch, train_loss, test_loss])
 
         if test_loss < save_flag:
-            # best_res = np.concatenate((test_GT, test_PRED), axis=1)
-            best_res = np.concatenate((np.expand_dims(test_GT, axis=1), np.expand_dims(test_PRED, axis=1)), axis=1)
-            best_res = np.concatenate((input_seq, best_res), axis=1)
-            # best_res = np.concatenate((np.squeeze(input_seq, axis=2), best_res), axis=1)
+            best_res = np.concatenate((test_GT, test_PRED), axis=1)
+            best_res = np.concatenate((np.squeeze(input_seq, axis=2), best_res), axis=1)
             # best_res = np.concatenate((np.expand_dims(test_GT, axis=1), np.expand_dims(test_PRED, axis=1)), axis=1)
             save_flag = test_loss
 
