@@ -26,7 +26,7 @@ GPU_IDS = [2, 3]
 SAVE_FLAG = 10000000000000
 
 # Parameters for sequence data and  RNN layers
-INPUT_SIZE = 1
+INPUT_SIZE = 3
 SEQ_LEN = 25
 CALIBRATE_INTERVAL = 1
 

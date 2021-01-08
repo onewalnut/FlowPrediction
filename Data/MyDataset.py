@@ -87,11 +87,13 @@ class SeqDataset(Dataset):
 
             for item in seqs_tmp:
                 # input size
-                tmp = item[:, 1]
-                tmp = np.array(tmp)
+                # tmp = item[:, 1]
+                tmp = np.array(item)
 
-                seqs.append(np.expand_dims(tmp[0:SEQ_LEN], axis=1))
-                labels.append([tmp[SEQ_LEN]])
+                seqs.append(tmp[0:SEQ_LEN])
+                labels.append(tmp[SEQ_LEN])
+                # seqs.append(np.expand_dims(tmp[0:SEQ_LEN], axis=1))
+                # labels.append([tmp[SEQ_LEN]])
 
 
             # normal config

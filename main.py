@@ -46,12 +46,15 @@ def flow_predict():
 
         train_loss, train_GT, train_PRED = train(epoch=epoch, model=model, train_loader=train_loader, optimizer=optimizer, loss_func=loss_func, device=device)
 
-        test_loss, test_GT, test_PRED = evaluate(model=model, test_loader=test_loader, loss_func=loss_func, device=device)
+        test_loss, input_seq, test_GT, test_PRED = evaluate(model=model, test_loader=test_loader, loss_func=loss_func, device=device)
 
         train_process_record.append([epoch, train_loss, test_loss])
 
         if test_loss < save_flag:
-            best_res = np.concatenate((test_GT, test_PRED),axis=1)
+            # best_res = np.concatenate((test_GT, test_PRED), axis=1)
+            best_res = np.concatenate((np.expand_dims(test_GT, axis=1), np.expand_dims(test_PRED, axis=1)), axis=1)
+            best_res = np.concatenate((input_seq, best_res), axis=1)
+            # best_res = np.concatenate((np.squeeze(input_seq, axis=2), best_res), axis=1)
             # best_res = np.concatenate((np.expand_dims(test_GT, axis=1), np.expand_dims(test_PRED, axis=1)), axis=1)
             save_flag = test_loss
 
@@ -103,6 +106,7 @@ def evaluate(model, test_loader, loss_func, device, model_idx=None):
     test_losses = []
     ground_truth = []
     prediction = []
+    input_seq = []
 
     for step, (seq, label) in enumerate(test_loader):
         seq = seq.type(torch.FloatTensor).to(device)
@@ -112,12 +116,13 @@ def evaluate(model, test_loader, loss_func, device, model_idx=None):
         loss = loss_func(output, label)
 
         test_losses.append(loss.data.item())
+        input_seq.extend(seq.cpu().detach().numpy().tolist())
         ground_truth.extend(label.cpu().detach().numpy().tolist())
         prediction.extend(output.cpu().detach().numpy().tolist())
 
     print("\tAverage test loss:{:.4f}".format(np.average(test_losses)))
 
-    return np.average(test_losses), ground_truth, prediction
+    return np.average(test_losses), input_seq, ground_truth, prediction
 
 
 def save_res(file, res):
