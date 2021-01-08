@@ -91,7 +91,7 @@ class SeqDataset(Dataset):
                 tmp = np.array(item)
 
                 seqs.append(tmp[0:SEQ_LEN])
-                labels.append(tmp[SEQ_LEN])
+                labels.append([tmp[SEQ_LEN][1]])
                 # seqs.append(np.expand_dims(tmp[0:SEQ_LEN], axis=1))
                 # labels.append([tmp[SEQ_LEN]])
 
