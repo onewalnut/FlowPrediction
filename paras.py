@@ -15,8 +15,8 @@ __author__ = 'walnut'
 
 # Parameters of train and validate process
 EPOCH = 500
-TRAIN_BATCH = 30
-TEST_BATCH = 10
+TRAIN_BATCH = 64
+TEST_BATCH = 32
 LR = 0.5
 LR_DECAY = 0.9
 DECAY_PERIOD = 25
@@ -27,7 +27,7 @@ SAVE_FLAG = 10000000000000
 
 # Parameters for sequence data and  RNN layers
 INPUT_SIZE = 3
-SEQ_LEN = 25
+SEQ_LEN = 6
 CALIBRATE_INTERVAL = 1
 
 
