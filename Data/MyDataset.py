@@ -28,7 +28,7 @@ class SeqDataset(Dataset):
             raw_data = [raw_data]
 
         data = self.data_process(raw_data)
-        seqs, labels = self.calibrate(data, shuffle=True)
+        seqs, labels = self.calibrate(data, shuffle=False)
 
         cut_point = int(len(seqs)*0.7)
         if train:

@@ -52,11 +52,12 @@ def flow_predict():
 
         if test_loss < save_flag:
             best_res = np.concatenate((test_GT, test_PRED), axis=1)
-            best_res = np.concatenate((np.squeeze(input_seq, axis=2), best_res), axis=1)
+            # best_res = np.concatenate((np.squeeze(input_seq, axis=2), best_res), axis=1)
             # best_res = np.concatenate((np.expand_dims(test_GT, axis=1), np.expand_dims(test_PRED, axis=1)), axis=1)
             save_flag = test_loss
 
             save_res(file=RES_PATH + "res.csv", res=best_res)
+            save_res(file=RES_PATH + "input_seq.csv", res=input_seq)
             torch.save(model, RES_PATH + "net.pkl")
 
         if epoch % DECAY_PERIOD == 0:
